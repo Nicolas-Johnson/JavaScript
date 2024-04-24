@@ -8,6 +8,34 @@
 </head>
 <body>
 
+    <section class="app">
+        <div class="wrapper">
+            <h1 class="title">To Do List</h1>
+            <form class="panel">
+                <input type="text" name="todo-title" id="title" class="todo-title" placeholder="Todo item">
+                <input type="date" class="todo-date" name="todo-date" id="date">
+                <select id="priority" name="priority" class="priority">
+                    <option value="high">high</option>
+                    <option value="med">med</option>
+                    <option value="low">low</option>
+                  </select>
+                <input id="add" type="button" class="button" value="Criar">
+            </form>
+        </div>
+        <div class="wrapper">
+            <div class="list-container">
+                <div class="cabecalho">
+                    <h3>Tarefa</h3>
+                    <h3>Do date</h3>
+                    <h3>Importancia</h3>
+                </div>
+                <ul id="list" class="list">
+                 
+                </ul>
+            </div>
+        </div>
+    </section>
+
 
     <script src="./JavaScript/todo-list.js"></script>
 </body>
