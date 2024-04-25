@@ -8,12 +8,13 @@ const updateApp = () => {
     const list = JSON.parse(localStorage.getItem('list')) || [];
 
     list.forEach(item => {
+        const {title, date, priority, index} = item;
         const li = document.createElement('li');
         li.innerHTML = `
-        <span>${item.title}</span>
-        <span>${item.date}</span>
-        <span>${item.priority}</span>
-        <button id="${item.index}" class="done">Done</button>
+        <span>${title}</span>
+        <span>${date}</span>
+        <span>${priority}</span>
+        <button id="${index}" class="done">Done</button>
         `;
         const ul = document.getElementById('list');
         ul.appendChild(li);
