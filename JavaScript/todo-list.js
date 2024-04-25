@@ -1,14 +1,8 @@
-/* <li>
-<span>t will be on the page? |</span>
-<span>01/05/2024</span>
-<span>low</span>
-<button class="done">Done</button>
-</li>
-*/
 const inputTitle = document.getElementById('title');
 const inputDate = document.getElementById('date');
 const inputPriority = document.getElementById('priority');
 const add = document.getElementById('add');
+const theme = document.getElementById('theme');
 
 const updateApp = () => {
     const list = JSON.parse(localStorage.getItem('list')) || [];
@@ -19,14 +13,13 @@ const updateApp = () => {
         <span>${item.title}</span>
         <span>${item.date}</span>
         <span>${item.priority}</span>
-        <button class="done">Done</button>
+        <button id="${item.index}" class="done">Done</button>
         `;
-        // console.log(li);
         const ul = document.getElementById('list');
         ul.appendChild(li);
         const itens = document.querySelectorAll('.done')
         itens.forEach(item => {
-            item.addEventListener('click', () => removeItem());
+            item.addEventListener('click', () => removeItem(item.id));
         })
     }); 
 }
@@ -52,9 +45,34 @@ const refreshPage = () => {
 
 const removeItem = (index) => {
     console.log(`Aqui esta o index desse item ${index}`)
+    const list = JSON.parse(localStorage.getItem('list')) || [];
+    const newList = list.filter(item => item.index != index);
+    localStorage.setItem('list', JSON.stringify(newList));
+    updateApp();
+    refreshPage();
 }
 
-add.addEventListener('click', addItem);
-window.addEventListener('load', updateApp());
+const handleTheme = () => {
+    const body = document.querySelector('body');
+    const wrapper = document.querySelectorAll('.wrapper');
+    if (theme.innerText === 'Light Mode') {
+        theme.innerText = 'Dark Mode';
+        body.style.backgroundColor = 'rgba(255, 255, 255, 0.747)';
+        body.style.color = 'rgba(11, 0, 61, 0.774)';
+        wrapper.forEach(item => {
+            item.style.backgroundColor = 'rgba(0, 65, 185, 0.555)';
+        });
+    } else {
+        theme.innerText = 'Light Mode';
+        body.style.backgroundColor = 'rgb(87, 87, 87)';
+        body.style.color = 'white';
+        wrapper.forEach(item => {
+            item.style.backgroundColor = 'grey';
+        });
+    }
 
-//Ps i need to passe the index of eacth element to the onclick callback function to be able to delete the corresponding element so think about it.
+}
+
+add.addEventListener('click', () => addItem());
+window.addEventListener('load', () => updateApp());
+theme.addEventListener('click', () => handleTheme());
